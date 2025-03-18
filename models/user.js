@@ -2,6 +2,9 @@ import dotenv from "dotenv";
 dotenv.config();
 import { Schema, model } from "mongoose";
 import encrypt from "mongoose-encryption";
+import md5 from "md5"
+
+
 
 const userSchema = new Schema({
   email: {
@@ -15,6 +18,6 @@ const userSchema = new Schema({
   },
 });
 
-userSchema.plugin(encrypt, { secret:process.env.SECRET, encryptedFields: ["password"] });
+//userSchema.plugin(encrypt, { secret:process.env.SECRET, encryptedFields: ["password"] });
 
 export const User = model("User", userSchema);
