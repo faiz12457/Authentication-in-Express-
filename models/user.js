@@ -1,23 +1,19 @@
 import dotenv from "dotenv";
 dotenv.config();
 import { Schema, model } from "mongoose";
-import encrypt from "mongoose-encryption";
-import md5 from "md5"
-
-
+import passportLocalMongoose from "passport-local-mongoose";
 
 const userSchema = new Schema({
-  email: {
+  username: {  // 🔹 Changed "email" to "username"
     type: String,
     required: true,
+    unique: true,
   },
-
-  password: {
-    type: String,
-    required: true,
-  },
+  password:{
+    type:String
+  }
 });
 
-//userSchema.plugin(encrypt, { secret:process.env.SECRET, encryptedFields: ["password"] });
+userSchema.plugin(passportLocalMongoose); // 🔹 Ensures email is used as username
 
 export const User = model("User", userSchema);
